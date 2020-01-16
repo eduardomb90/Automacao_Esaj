@@ -40,7 +40,6 @@
             this.btnAster = new System.Windows.Forms.Button();
             this.btnInterroga = new System.Windows.Forms.Button();
             this.lblAssunto = new System.Windows.Forms.Label();
-            this.cBAssunto = new System.Windows.Forms.ComboBox();
             this.lblMagistrado = new System.Windows.Forms.Label();
             this.txtMagistrado = new System.Windows.Forms.TextBox();
             this.lblData = new System.Windows.Forms.Label();
@@ -48,6 +47,8 @@
             this.lblDataExemp = new System.Windows.Forms.Label();
             this.txtDataInicial = new System.Windows.Forms.TextBox();
             this.txtDataFinal = new System.Windows.Forms.TextBox();
+            this.txtAssunto = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // cbVara
@@ -86,7 +87,8 @@
             this.cbVara.Location = new System.Drawing.Point(176, 268);
             this.cbVara.Name = "cbVara";
             this.cbVara.Size = new System.Drawing.Size(362, 21);
-            this.cbVara.TabIndex = 24;
+            this.cbVara.TabIndex = 5;
+            this.cbVara.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cbVara_KeyDown);
             // 
             // lblPesquisa
             // 
@@ -124,7 +126,7 @@
             // btnE
             // 
             this.btnE.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnE.Location = new System.Drawing.Point(132, 92);
+            this.btnE.Location = new System.Drawing.Point(176, 84);
             this.btnE.Name = "btnE";
             this.btnE.Size = new System.Drawing.Size(38, 23);
             this.btnE.TabIndex = 15;
@@ -137,12 +139,13 @@
             this.txbPesquisa.Location = new System.Drawing.Point(176, 58);
             this.txbPesquisa.Name = "txbPesquisa";
             this.txbPesquisa.Size = new System.Drawing.Size(462, 20);
-            this.txbPesquisa.TabIndex = 21;
+            this.txbPesquisa.TabIndex = 0;
+            this.txbPesquisa.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txbPesquisa_KeyDown);
             // 
             // btnOu
             // 
             this.btnOu.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnOu.Location = new System.Drawing.Point(176, 92);
+            this.btnOu.Location = new System.Drawing.Point(220, 84);
             this.btnOu.Name = "btnOu";
             this.btnOu.Size = new System.Drawing.Size(38, 23);
             this.btnOu.TabIndex = 16;
@@ -153,7 +156,7 @@
             // btnAspas
             // 
             this.btnAspas.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAspas.Location = new System.Drawing.Point(364, 92);
+            this.btnAspas.Location = new System.Drawing.Point(408, 84);
             this.btnAspas.Name = "btnAspas";
             this.btnAspas.Size = new System.Drawing.Size(38, 23);
             this.btnAspas.TabIndex = 20;
@@ -164,7 +167,7 @@
             // btnNao
             // 
             this.btnNao.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNao.Location = new System.Drawing.Point(220, 92);
+            this.btnNao.Location = new System.Drawing.Point(264, 84);
             this.btnNao.Name = "btnNao";
             this.btnNao.Size = new System.Drawing.Size(50, 23);
             this.btnNao.TabIndex = 17;
@@ -175,7 +178,7 @@
             // btnAster
             // 
             this.btnAster.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAster.Location = new System.Drawing.Point(320, 92);
+            this.btnAster.Location = new System.Drawing.Point(364, 84);
             this.btnAster.Name = "btnAster";
             this.btnAster.Size = new System.Drawing.Size(38, 23);
             this.btnAster.TabIndex = 19;
@@ -186,7 +189,7 @@
             // btnInterroga
             // 
             this.btnInterroga.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnInterroga.Location = new System.Drawing.Point(276, 92);
+            this.btnInterroga.Location = new System.Drawing.Point(320, 84);
             this.btnInterroga.Name = "btnInterroga";
             this.btnInterroga.Size = new System.Drawing.Size(38, 23);
             this.btnInterroga.TabIndex = 18;
@@ -205,21 +208,6 @@
             this.lblAssunto.TabIndex = 14;
             this.lblAssunto.Text = "Assunto:";
             // 
-            // cBAssunto
-            // 
-            this.cBAssunto.AutoCompleteCustomSource.AddRange(new string[] {
-            "SÃO PAULO"});
-            this.cBAssunto.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-            this.cBAssunto.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-            this.cBAssunto.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cBAssunto.FormattingEnabled = true;
-            this.cBAssunto.Items.AddRange(new object[] {
-            "Planos de Saúde"});
-            this.cBAssunto.Location = new System.Drawing.Point(176, 143);
-            this.cBAssunto.Name = "cBAssunto";
-            this.cBAssunto.Size = new System.Drawing.Size(362, 21);
-            this.cBAssunto.TabIndex = 24;
-            // 
             // lblMagistrado
             // 
             this.lblMagistrado.AutoSize = true;
@@ -236,7 +224,8 @@
             this.txtMagistrado.Location = new System.Drawing.Point(176, 186);
             this.txtMagistrado.Name = "txtMagistrado";
             this.txtMagistrado.Size = new System.Drawing.Size(362, 20);
-            this.txtMagistrado.TabIndex = 25;
+            this.txtMagistrado.TabIndex = 2;
+            this.txtMagistrado.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMagistrado_KeyDown);
             // 
             // lblData
             // 
@@ -265,7 +254,7 @@
             this.lblDataExemp.AutoSize = true;
             this.lblDataExemp.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblDataExemp.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lblDataExemp.Location = new System.Drawing.Point(497, 226);
+            this.lblDataExemp.Location = new System.Drawing.Point(497, 229);
             this.lblDataExemp.Name = "lblDataExemp";
             this.lblDataExemp.Size = new System.Drawing.Size(94, 16);
             this.lblDataExemp.TabIndex = 14;
@@ -277,7 +266,8 @@
             this.txtDataInicial.MaxLength = 10;
             this.txtDataInicial.Name = "txtDataInicial";
             this.txtDataInicial.Size = new System.Drawing.Size(138, 20);
-            this.txtDataInicial.TabIndex = 26;
+            this.txtDataInicial.TabIndex = 3;
+            this.txtDataInicial.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDataInicial_KeyDown);
             // 
             // txtDataFinal
             // 
@@ -285,7 +275,27 @@
             this.txtDataFinal.MaxLength = 10;
             this.txtDataFinal.Name = "txtDataFinal";
             this.txtDataFinal.Size = new System.Drawing.Size(138, 20);
-            this.txtDataFinal.TabIndex = 27;
+            this.txtDataFinal.TabIndex = 4;
+            this.txtDataFinal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtDataFinal_KeyDown);
+            // 
+            // txtAssunto
+            // 
+            this.txtAssunto.Location = new System.Drawing.Point(176, 143);
+            this.txtAssunto.Name = "txtAssunto";
+            this.txtAssunto.Size = new System.Drawing.Size(362, 20);
+            this.txtAssunto.TabIndex = 1;
+            this.txtAssunto.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtAssunto_KeyDown);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.Location = new System.Drawing.Point(544, 188);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(94, 16);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "nome completo";
             // 
             // RobotUserControl
             // 
@@ -294,11 +304,12 @@
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Controls.Add(this.txtDataFinal);
             this.Controls.Add(this.txtDataInicial);
+            this.Controls.Add(this.txtAssunto);
             this.Controls.Add(this.txtMagistrado);
-            this.Controls.Add(this.cBAssunto);
             this.Controls.Add(this.cbVara);
             this.Controls.Add(this.lblPesquisa);
             this.Controls.Add(this.lblMagistrado);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lblDataExemp);
             this.Controls.Add(this.lblAte);
             this.Controls.Add(this.lblData);
@@ -332,7 +343,6 @@
         private System.Windows.Forms.Button btnAster;
         private System.Windows.Forms.Button btnInterroga;
         private System.Windows.Forms.Label lblAssunto;
-        private System.Windows.Forms.ComboBox cBAssunto;
         private System.Windows.Forms.Label lblMagistrado;
         private System.Windows.Forms.TextBox txtMagistrado;
         private System.Windows.Forms.Label lblData;
@@ -340,5 +350,7 @@
         private System.Windows.Forms.Label lblDataExemp;
         private System.Windows.Forms.TextBox txtDataInicial;
         private System.Windows.Forms.TextBox txtDataFinal;
+        private System.Windows.Forms.TextBox txtAssunto;
+        private System.Windows.Forms.Label label1;
     }
 }

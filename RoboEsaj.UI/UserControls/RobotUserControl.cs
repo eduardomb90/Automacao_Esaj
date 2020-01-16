@@ -23,6 +23,8 @@ namespace RoboEsaj.UI.UserControls
         public RobotUserControl()
         {
             InitializeComponent();
+            txbPesquisa.Focus();
+            txbPesquisa.Select();
         }
 
         private void btnE_Click(object sender, EventArgs e) => txbPesquisa.Text += " E ";
@@ -45,20 +47,14 @@ namespace RoboEsaj.UI.UserControls
 
         private void btnConsultar_Click(object sender, EventArgs e)
         {
-            //Criar uma lista de string para receber os argumentos e passar para o método scrape
             DadosPesquisa = new List<string>();
 
             DadosPesquisa.Add(txbPesquisa.Text); //Pesquisa Livre
-            DadosPesquisa.Add(cBAssunto.GetItemText(cBAssunto.SelectedItem)); //Assunto
+            DadosPesquisa.Add(txtAssunto.Text); //Assunto
             DadosPesquisa.Add(txtMagistrado.Text); //Magistrado
             DadosPesquisa.Add(txtDataInicial.Text); // Data Inicial
             DadosPesquisa.Add(txtDataFinal.Text); // Data Final
             DadosPesquisa.Add(cbVara.GetItemText(cbVara.SelectedItem)); // Vara
-
-            //TextoPesquisa = txbPesquisa.Text;
-            //Assunto = cBAssunto.GetItemText(cBAssunto.SelectedItem);
-            //NomeMagistrado = txtMagistrado.Text;
-            //Vara = cbVara.GetItemText(cbVara.SelectedItem);
 
             bool allSame = DadosPesquisa.All(item => item == "");
 
@@ -76,6 +72,66 @@ namespace RoboEsaj.UI.UserControls
             catch (Exception)
             {
                 return;
+            }
+        }
+
+        private void txbPesquisa_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                btnConsultar.Focus();
+                btnConsultar.PerformClick();
+            }
+        }
+
+        private void txtAssunto_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                btnConsultar.Focus();
+                btnConsultar.PerformClick();
+            }
+        }
+
+        private void txtMagistrado_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                btnConsultar.Focus();
+                btnConsultar.PerformClick();
+            }
+        }
+
+        private void txtDataInicial_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                btnConsultar.Focus();
+                btnConsultar.PerformClick();
+            }
+        }
+
+        private void txtDataFinal_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                btnConsultar.Focus();
+                btnConsultar.PerformClick();
+            }
+        }
+
+        private void cbVara_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                btnConsultar.Focus();
+                btnConsultar.PerformClick();
             }
         }
     }

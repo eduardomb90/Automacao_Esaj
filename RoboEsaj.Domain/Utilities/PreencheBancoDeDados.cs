@@ -67,48 +67,88 @@ namespace RoboEsaj.Domain.Utilities
 
             _conteudo = row[i].Text;
 
-            if (_conteudo.IndexOf("procedente", StringComparison.OrdinalIgnoreCase) >= 0 &&
-                _conteudo.IndexOf("improcedente", StringComparison.OrdinalIgnoreCase) == -1 &&
-                _conteudo.IndexOf("parcialmente procedente", StringComparison.OrdinalIgnoreCase) == -1)
+            
+
+            
+            if ((_conteudo.IndexOf("procedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                 _conteudo.IndexOf("provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                 _conteudo.IndexOf("provido", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                 _conteudo.IndexOf("acolho o pedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                 _conteudo.IndexOf("concedo", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                 _conteudo.IndexOf("concedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                 _conteudo.IndexOf("concedida", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                 _conteudo.IndexOf("julgo procedente", StringComparison.OrdinalIgnoreCase) >= 0)
+                &&
+                (_conteudo.IndexOf("improcedente", StringComparison.OrdinalIgnoreCase) == -1 &&
+                 _conteudo.IndexOf("parcialmente procedente", StringComparison.OrdinalIgnoreCase) == -1 &&
+                 _conteudo.IndexOf("indefiro", StringComparison.OrdinalIgnoreCase) == -1 &&
+                 _conteudo.IndexOf("improvido", StringComparison.OrdinalIgnoreCase) == -1 &&
+                 _conteudo.IndexOf("nego provimento", StringComparison.OrdinalIgnoreCase) == -1 &&
+                 _conteudo.IndexOf("nega provimento", StringComparison.OrdinalIgnoreCase) == -1 &&
+                 _conteudo.IndexOf("não concedo", StringComparison.OrdinalIgnoreCase) == -1 &&
+                 _conteudo.IndexOf("não concedida", StringComparison.OrdinalIgnoreCase) == -1 &&
+                 _conteudo.IndexOf("não concedido", StringComparison.OrdinalIgnoreCase) == -1 &&
+                 _conteudo.IndexOf("julgo improcedente", StringComparison.OrdinalIgnoreCase) == -1))
             {
-                Decisao.Resultado = "Procedente";
+                Decisao.Resultado = "Favorável";
             }
-            else if (_conteudo.IndexOf("julgo procedente", StringComparison.OrdinalIgnoreCase) >= 0 &&
-                     _conteudo.IndexOf("julgo improcedente", StringComparison.OrdinalIgnoreCase) == -1)
+            else if((_conteudo.IndexOf("procedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                     _conteudo.IndexOf("provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                     _conteudo.IndexOf("provido", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                     _conteudo.IndexOf("acolho o pedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                     _conteudo.IndexOf("concedo", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                     _conteudo.IndexOf("concedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                     _conteudo.IndexOf("concedida", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                     _conteudo.IndexOf("julgo procedente", StringComparison.OrdinalIgnoreCase) >= 0)
+                     &&
+                     (_conteudo.IndexOf("improcedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("parcialmente procedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("indefiro", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("improvido", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("nego provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("nega provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("não concedo", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("não concedida", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("não concedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("julgo improcedente", StringComparison.OrdinalIgnoreCase) >= 0))
             {
-                Decisao.Resultado = "Procedente";
+                Decisao.Resultado = "Parcialmente Favorável (precisa ser consultado)";
             }
-            else if(_conteudo.IndexOf("parcialmente procedente", StringComparison.OrdinalIgnoreCase) >= 0)
+            else if ((_conteudo.IndexOf("improcedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("parcialmente procedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("indefiro", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("improvido", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("nego provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("nega provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("não concedo", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("não concedida", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("não concedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("julgo improcedente", StringComparison.OrdinalIgnoreCase) >= 0) 
+                     &&
+                     (_conteudo.IndexOf("procedente", StringComparison.OrdinalIgnoreCase) == -1 &&
+                     _conteudo.IndexOf("provimento", StringComparison.OrdinalIgnoreCase) == -1 &&
+                     _conteudo.IndexOf("provido", StringComparison.OrdinalIgnoreCase) == -1 &&
+                     _conteudo.IndexOf("acolho o pedido", StringComparison.OrdinalIgnoreCase) == -1 &&
+                     _conteudo.IndexOf("concedo", StringComparison.OrdinalIgnoreCase) == -1 &&
+                     _conteudo.IndexOf("concedido", StringComparison.OrdinalIgnoreCase) == -1 &&
+                     _conteudo.IndexOf("concedida", StringComparison.OrdinalIgnoreCase) == -1 &&
+                     _conteudo.IndexOf("julgo procedente", StringComparison.OrdinalIgnoreCase) == -1))
             {
-                Decisao.Resultado = "Parcialmente Procedente";
+                Decisao.Resultado = "Desfavorável";
             }
-            else if (_conteudo.IndexOf("julgo procedente", StringComparison.OrdinalIgnoreCase) >= 0 &&
-                     _conteudo.IndexOf("julgo improcedente", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                Decisao.Resultado = "Parcialmente Procedente";
-            }
-            else if (_conteudo.IndexOf("improcedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     _conteudo.IndexOf("nega provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     _conteudo.IndexOf("nego provimento", StringComparison.OrdinalIgnoreCase) >= 0 &&
-                     _conteudo.IndexOf("julgo procedente", StringComparison.OrdinalIgnoreCase) == -1)
-            {
-                Decisao.Resultado = "Improcedente";
-            }
-            else if (_conteudo.IndexOf("julgo extinto", StringComparison.OrdinalIgnoreCase) >= 0)
-            {
-                Decisao.Resultado = "Extinto";
-            }
-            else if (_conteudo.IndexOf("conciliação", StringComparison.OrdinalIgnoreCase) >= 0 &&
-                     _conteudo.IndexOf("homologo", StringComparison.OrdinalIgnoreCase) >= 0)
+            else if ((_conteudo.IndexOf("conciliação", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("acordo", StringComparison.OrdinalIgnoreCase) >= 0)
+                      &&
+                     (_conteudo.IndexOf("homologo", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("julgo extinto", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                      _conteudo.IndexOf("declaro extinto", StringComparison.OrdinalIgnoreCase) >= 0))
             {
                 Decisao.Resultado = "Homologação de Conciliação";
             }
-            else if (_conteudo.IndexOf("concedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     _conteudo.IndexOf("concedida", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     _conteudo.IndexOf("concedo", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     _conteudo.IndexOf("defiro", StringComparison.OrdinalIgnoreCase) >= 0)
+            else if (_conteudo.IndexOf("julgo extinto", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                     _conteudo.IndexOf("declaro extinto", StringComparison.OrdinalIgnoreCase) >= 0)
             {
-                Decisao.Resultado = "Possivelmente Procedente";
+                Decisao.Resultado = "Extinto";
             }
             else
             {

@@ -24,20 +24,22 @@ namespace RoboEsaj.Domain.Utilities
 
         private string _url = "https://esaj.tjsp.jus.br/cjpg/";
         private By InputPesquisaId = By.Id("iddadosConsulta.pesquisaLivre");
+        private By ButtonProcurarAssunto = By.Id("botaoProcurar_assunto");
+        private By InputAssuntoFilter = By.Id("assunto_treeSelectFilter");
+        private By ButtonAssuntoFilter = By.CssSelector("div#assunto_treeSelectContainer input#filtroButton[value='Procurar']");
+        private By Assuntos = By.CssSelector("span[id*='assunto_tree']");
+        private By ButtonSelectAssunto = By.CssSelector("div#divContainerTree_assunto input.spwBotaoDefaultGrid[value='Selecionar']");
         private By InputMagistradoId = By.Id("nmAgente");
+        private By InputDataInicialId = By.Id("iddadosConsulta.dtInicio");
+        private By InputDataFinalId = By.Id("iddadosConsulta.dtFim");
+        private By ButtonProcurarVara = By.Id("botaoProcurar_varas");
+        private By InputVaraFilter = By.Id("varas_treeSelectFilter");
+        private By ButtonVaraFilter = By.CssSelector("div#varas_treeSelectContainer input#filtroButton[value='Procurar']");
+        private By Varas = By.CssSelector("span[id*='varas_tree']");
+        private By ButtonSelectVara = By.CssSelector("div#divContainerTree_varas input.spwBotaoDefaultGrid[value='Selecionar']");
         private By ButtonSubmitPesquisa = By.Id("pbSubmit");
         private By MessageAtencao = By.CssSelector("div[id='spwTabelaMensagem']");
         private By MessageNoResult = By.CssSelector("div[class='aviso espacamentoCimaBaixo centralizado fonteNegrito']");
-        private By ButtonProcurarAssunto = By.Id("botaoProcurar_assunto");
-        private By ButtonProcurarVara = By.Id("botaoProcurar_varas");
-        private By InputVaraFilter = By.Id("varas_treeSelectFilter");
-        private By ButtonVaraFilter = By.Id("filtroButton");
-        private By Assuntos = By.CssSelector("span[id*='assunto_tree']");
-        private By InputDataInicialId = By.Id("iddadosConsulta.dtInicio");
-        private By InputDataFinalId = By.Id("iddadosConsulta.dtFim");
-        private By Varas = By.CssSelector("span[id*='varas_tree']");
-        private By ButtonSelectAssunto = By.CssSelector("div#divContainerTree_assunto input.spwBotaoDefaultGrid[value='Selecionar']");
-        private By ButtonSelectVara = By.CssSelector("div#divContainerTree_varas input.spwBotaoDefaultGrid[value='Selecionar']");
         private By NextPage = By.CssSelector("a.esajLinkLogin[title='Próxima página']");
         private By ShowHidden = By.CssSelector("img.mostrarOcultarConteudo[src*='icoMais']");
         private By Tables = By.ClassName("fundocinza1");
@@ -50,6 +52,8 @@ namespace RoboEsaj.Domain.Utilities
         private IWebElement InputDataInicial { get; set; }
         private IWebElement InputDataFinal { get; set; }
         private IWebElement VaraOpenButton { get; set; }
+        private IWebElement AssuntoFilter { get; set; }
+        private IWebElement AssuntoFilterButton { get; set; }
         private IWebElement VaraFilter { get; set; }
         private IWebElement VaraFilterButton { get; set; }
         private IWebElement VaraCloseButton { get; set; }
@@ -74,8 +78,9 @@ namespace RoboEsaj.Domain.Utilities
                 SubmitPesquisa();
                 Thread.Sleep(1000);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                MessageBox.Show(e.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 _driver.Quit();
                 return;
             }
@@ -180,21 +185,40 @@ namespace RoboEsaj.Domain.Utilities
 
         private void CloseAssunto() => AssuntoCloseButton.Click();
 
+        private void AssuntosFilter(string assunto)
+        {
+            AssuntoFilter = _driver.FindElement(InputAssuntoFilter);
+            AssuntoFilterButton = _driver.FindElement(ButtonAssuntoFilter);
+            AssuntoFilter.SendKeys(assunto);
+            AssuntoFilterButton.Click();
+        }
+
         private void SelectAssunto(string assunto)
         {
             if (assunto != "")
             {
                 OpenAssunto();
 
-                _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(Assuntos));
-                opcoes = _driver.FindElements(Assuntos);
+                try
+                {
+                    _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(InputAssuntoFilter));
+                    AssuntosFilter(assunto);
 
-                opcoes
-                   .Where(o => o.Text.Contains(assunto))
-                   .FirstOrDefault().Click();
+                    Thread.Sleep(2000);
+                    opcoes = _driver.FindElements(Assuntos);
+                    opcoes
+                        .Where(o => o.Text.IndexOf(assunto, StringComparison.OrdinalIgnoreCase) >= 0)
+                        .ToList()
+                        .ForEach(o =>
+                        {
+                            o.Click();
+                        });
+                }
+                catch (Exception)
+                {
+                }
 
                 AssuntoCloseButton = _driver.FindElement(ButtonSelectAssunto);
-
                 CloseAssunto();
             }
         }
@@ -215,45 +239,48 @@ namespace RoboEsaj.Domain.Utilities
         {
             if (vara != "")
             {
-                OpenVara();
-
-                if (vara == "SÃO PAULO")
+                try
                 {
-                    _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(InputVaraFilter));
+                    OpenVara();
 
-                    ForoFilter(vara);
+                    if (vara == "SÃO PAULO")
+                    {
+                        _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(InputVaraFilter));
+                        ForoFilter(vara);
 
-                    Thread.Sleep(2000);
-                
-                    opcoes = _driver.FindElements(Varas);
-                    
-                    opcoes                        
-                        .ToList()
-                        .ForEach(o =>
-                        {
-                            if (o.Text != "Foro Central Criminal Barra Funda" &&
-                                o.Text != "Foro Central Juizados Especiais Cíveis" &&
-                                o.Text.Contains("riminal") || o.Text.Contains("amília") || 
-                                o.Text.Contains("uizado") || o.Text.Contains("alência") ||
-                                o.Text.Contains("nfância"))
+                        Thread.Sleep(2000);
+
+                        opcoes = _driver.FindElements(Varas);
+                        opcoes
+                            .ToList()
+                            .ForEach(o =>
                             {
-                                o.Click();
-                            }
-                        });
+                                if (o.Text != "Foro Central Criminal Barra Funda" &&
+                                    o.Text != "Foro Central Juizados Especiais Cíveis" &&
+                                    o.Text.Contains("riminal") || o.Text.Contains("amília") ||
+                                    o.Text.Contains("uizado") || o.Text.Contains("alência") ||
+                                    o.Text.Contains("nfância"))
+                                {
+                                    o.Click();
+                                }
+                            });
+                    }
+                    else
+                    {
+                        _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(Varas));
+                        opcoes = _driver.FindElements(Varas);
+
+                        opcoes
+                           .Where(o => o.Text.Contains(vara))
+                           .FirstOrDefault()
+                           .Click();
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    _wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(Varas));
-                    opcoes = _driver.FindElements(Varas);
 
-                    opcoes
-                       .Where(o => o.Text.Contains(vara))
-                       .FirstOrDefault()
-                       .Click();
                 }
-
                 VaraCloseButton = _driver.FindElement(ButtonSelectVara);
-
                 CloseVara();
             }
         }

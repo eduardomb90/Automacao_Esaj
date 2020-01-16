@@ -146,7 +146,7 @@
       <DependentUpon>RobotUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <Content Include="EsajDatabase.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
