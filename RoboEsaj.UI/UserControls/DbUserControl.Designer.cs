@@ -31,14 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.btnDgvExport = new System.Windows.Forms.Button();
             this.dgvEsaj = new System.Windows.Forms.DataGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnReloadDb = new System.Windows.Forms.Button();
-            this.lblPesquisarDb = new System.Windows.Forms.Label();
-            this.txtPesquisarDb = new System.Windows.Forms.TextBox();
-            this.btnPesquisarDb = new System.Windows.Forms.Button();
-            this.decisaoModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,9 +40,17 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.decisaoModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnReloadDb = new System.Windows.Forms.Button();
+            this.lblPesquisarDb = new System.Windows.Forms.Label();
+            this.txtPesquisarDb = new System.Windows.Forms.TextBox();
+            this.btnPesquisarDb = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEsaj)).BeginInit();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.decisaoModelBindingSource)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnDgvExport
@@ -86,84 +86,6 @@
             this.dgvEsaj.ReadOnly = true;
             this.dgvEsaj.Size = new System.Drawing.Size(807, 322);
             this.dgvEsaj.TabIndex = 2;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.btnSave);
-            this.panel1.Controls.Add(this.btnReloadDb);
-            this.panel1.Controls.Add(this.btnDgvExport);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 402);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(813, 55);
-            this.panel1.TabIndex = 5;
-            // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(422, 8);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(131, 37);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Limpar banco";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.Remove_Click);
-            // 
-            // btnSave
-            // 
-            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(148, 8);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(131, 37);
-            this.btnSave.TabIndex = 4;
-            this.btnSave.Text = "Salvar";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.Save_Excel);
-            // 
-            // btnReloadDb
-            // 
-            this.btnReloadDb.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReloadDb.Location = new System.Drawing.Point(285, 8);
-            this.btnReloadDb.Name = "btnReloadDb";
-            this.btnReloadDb.Size = new System.Drawing.Size(131, 37);
-            this.btnReloadDb.TabIndex = 4;
-            this.btnReloadDb.Text = "Carregar banco";
-            this.btnReloadDb.UseVisualStyleBackColor = true;
-            this.btnReloadDb.Click += new System.EventHandler(this.Reload_Click);
-            // 
-            // lblPesquisarDb
-            // 
-            this.lblPesquisarDb.AutoSize = true;
-            this.lblPesquisarDb.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPesquisarDb.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.lblPesquisarDb.Location = new System.Drawing.Point(94, 28);
-            this.lblPesquisarDb.Name = "lblPesquisarDb";
-            this.lblPesquisarDb.Size = new System.Drawing.Size(74, 16);
-            this.lblPesquisarDb.TabIndex = 6;
-            this.lblPesquisarDb.Text = "Pesquisar:";
-            // 
-            // txtPesquisarDb
-            // 
-            this.txtPesquisarDb.Location = new System.Drawing.Point(174, 27);
-            this.txtPesquisarDb.Name = "txtPesquisarDb";
-            this.txtPesquisarDb.Size = new System.Drawing.Size(475, 20);
-            this.txtPesquisarDb.TabIndex = 7;
-            // 
-            // btnPesquisarDb
-            // 
-            this.btnPesquisarDb.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPesquisarDb.Location = new System.Drawing.Point(670, 22);
-            this.btnPesquisarDb.Name = "btnPesquisarDb";
-            this.btnPesquisarDb.Size = new System.Drawing.Size(90, 28);
-            this.btnPesquisarDb.TabIndex = 4;
-            this.btnPesquisarDb.Text = "Buscar";
-            this.btnPesquisarDb.UseVisualStyleBackColor = true;
-            this.btnPesquisarDb.Click += new System.EventHandler(this.Buscar_Click);
-            // 
-            // decisaoModelBindingSource
-            // 
-            this.decisaoModelBindingSource.DataSource = typeof(RoboEsaj.Database.Models.DecisaoModel);
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -228,6 +150,85 @@
             this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
             this.dataGridViewTextBoxColumn9.ReadOnly = true;
             // 
+            // decisaoModelBindingSource
+            // 
+            this.decisaoModelBindingSource.DataSource = typeof(RoboEsaj.Database.Models.DecisaoModel);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.btnSave);
+            this.panel1.Controls.Add(this.btnReloadDb);
+            this.panel1.Controls.Add(this.btnDgvExport);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 402);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(813, 55);
+            this.panel1.TabIndex = 5;
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(422, 8);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(131, 37);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Limpar banco";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Remove_Click);
+            // 
+            // btnSave
+            // 
+            this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.Location = new System.Drawing.Point(148, 8);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(131, 37);
+            this.btnSave.TabIndex = 4;
+            this.btnSave.Text = "Salvar";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.Save_Excel);
+            // 
+            // btnReloadDb
+            // 
+            this.btnReloadDb.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReloadDb.Location = new System.Drawing.Point(285, 8);
+            this.btnReloadDb.Name = "btnReloadDb";
+            this.btnReloadDb.Size = new System.Drawing.Size(131, 37);
+            this.btnReloadDb.TabIndex = 4;
+            this.btnReloadDb.Text = "Carregar banco";
+            this.btnReloadDb.UseVisualStyleBackColor = true;
+            this.btnReloadDb.Click += new System.EventHandler(this.Reload_Click);
+            // 
+            // lblPesquisarDb
+            // 
+            this.lblPesquisarDb.AutoSize = true;
+            this.lblPesquisarDb.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPesquisarDb.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.lblPesquisarDb.Location = new System.Drawing.Point(94, 28);
+            this.lblPesquisarDb.Name = "lblPesquisarDb";
+            this.lblPesquisarDb.Size = new System.Drawing.Size(74, 16);
+            this.lblPesquisarDb.TabIndex = 6;
+            this.lblPesquisarDb.Text = "Pesquisar:";
+            // 
+            // txtPesquisarDb
+            // 
+            this.txtPesquisarDb.Location = new System.Drawing.Point(174, 27);
+            this.txtPesquisarDb.Name = "txtPesquisarDb";
+            this.txtPesquisarDb.Size = new System.Drawing.Size(475, 20);
+            this.txtPesquisarDb.TabIndex = 7;
+            this.txtPesquisarDb.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtPesquisarDb_KeyDown);
+            // 
+            // btnPesquisarDb
+            // 
+            this.btnPesquisarDb.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPesquisarDb.Location = new System.Drawing.Point(670, 22);
+            this.btnPesquisarDb.Name = "btnPesquisarDb";
+            this.btnPesquisarDb.Size = new System.Drawing.Size(90, 28);
+            this.btnPesquisarDb.TabIndex = 4;
+            this.btnPesquisarDb.Text = "Buscar";
+            this.btnPesquisarDb.UseVisualStyleBackColor = true;
+            this.btnPesquisarDb.Click += new System.EventHandler(this.Buscar_Click);
+            // 
             // DbUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -241,8 +242,8 @@
             this.Name = "DbUserControl";
             this.Size = new System.Drawing.Size(813, 457);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEsaj)).EndInit();
-            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.decisaoModelBindingSource)).EndInit();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

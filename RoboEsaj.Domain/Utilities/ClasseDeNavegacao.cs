@@ -23,7 +23,7 @@ namespace RoboEsaj.Domain.Utilities
         private int tableIndex = 1;
 
         private string _url = "https://esaj.tjsp.jus.br/cjpg/";
-        private By InputPesquisaId = By.Id("iddadosConsulta.pesquisaLivre");
+        private By InputPesquisaText = By.Id("iddadosConsulta.pesquisaLivre");
         private By ButtonProcurarAssunto = By.Id("botaoProcurar_assunto");
         private By InputAssuntoFilter = By.Id("assunto_treeSelectFilter");
         private By ButtonAssuntoFilter = By.CssSelector("div#assunto_treeSelectContainer input#filtroButton[value='Procurar']");
@@ -32,6 +32,7 @@ namespace RoboEsaj.Domain.Utilities
         private By InputMagistradoId = By.Id("nmAgente");
         private By InputDataInicialId = By.Id("iddadosConsulta.dtInicio");
         private By InputDataFinalId = By.Id("iddadosConsulta.dtFim");
+        private By InputVaraText = By.Id("varas_selectionText");
         private By ButtonProcurarVara = By.Id("botaoProcurar_varas");
         private By InputVaraFilter = By.Id("varas_treeSelectFilter");
         private By ButtonVaraFilter = By.CssSelector("div#varas_treeSelectContainer input#filtroButton[value='Procurar']");
@@ -51,6 +52,7 @@ namespace RoboEsaj.Domain.Utilities
         private IWebElement AssuntoCloseButton { get; set; }
         private IWebElement InputDataInicial { get; set; }
         private IWebElement InputDataFinal { get; set; }
+        private IWebElement InputVara { get; set; }
         private IWebElement VaraOpenButton { get; set; }
         private IWebElement AssuntoFilter { get; set; }
         private IWebElement AssuntoFilterButton { get; set; }
@@ -166,11 +168,12 @@ namespace RoboEsaj.Domain.Utilities
         {
             try
             {
-                InputPesquisa = _driver.FindElement(InputPesquisaId);
+                InputPesquisa = _driver.FindElement(InputPesquisaText);
                 InputMagistrado = _driver.FindElement(InputMagistradoId);
                 AssuntoOpenButton = _driver.FindElement(ButtonProcurarAssunto);
                 InputDataInicial = _driver.FindElement(InputDataInicialId);
                 InputDataFinal = _driver.FindElement(InputDataFinalId);
+                InputVara = _driver.FindElement(InputVaraText);
                 VaraOpenButton = _driver.FindElement(ButtonProcurarVara);
             }
             catch (NoSuchElementException)
@@ -251,15 +254,22 @@ namespace RoboEsaj.Domain.Utilities
                         Thread.Sleep(2000);
 
                         opcoes = _driver.FindElements(Varas);
+
+                        opcoes
+                           .Where(o => o.Text.Contains(vara))
+                           .FirstOrDefault()
+                           .Click();
+
                         opcoes
                             .ToList()
                             .ForEach(o =>
                             {
-                                if (o.Text != "Foro Central Criminal Barra Funda" &&
-                                    o.Text != "Foro Central Juizados Especiais Cíveis" &&
-                                    o.Text.Contains("riminal") || o.Text.Contains("amília") ||
+                                if ((o.Text != "Foro Central Criminal Barra Funda" &&
+                                    o.Text != "Foro Central Juizados Especiais Cíveis")
+                                    &&
+                                    (o.Text.Contains("riminal") || o.Text.Contains("amília") ||
                                     o.Text.Contains("uizado") || o.Text.Contains("alência") ||
-                                    o.Text.Contains("nfância"))
+                                    o.Text.Contains("nfância")))
                                 {
                                     o.Click();
                                 }
@@ -287,12 +297,31 @@ namespace RoboEsaj.Domain.Utilities
 
         private void FillPesquisa(IList<string> dadosPesquisa)
         {
-            InputPesquisa.SendKeys(dadosPesquisa[0]);
-            SelectAssunto(dadosPesquisa[1]);
-            InputMagistrado.SendKeys(dadosPesquisa[2]);
-            InputDataInicial.SendKeys(dadosPesquisa[3]);
-            InputDataFinal.SendKeys(dadosPesquisa[4]);
-            SelectVara(dadosPesquisa[5]);
+            if(dadosPesquisa[0] != "")
+            {
+                InputPesquisa.SendKeys(dadosPesquisa[0]);
+            }
+            if (dadosPesquisa[1] != "")
+            {
+                SelectAssunto(dadosPesquisa[1]);
+            }
+            if (dadosPesquisa[2] != "")
+            {
+                InputMagistrado.SendKeys(dadosPesquisa[2]);
+            }
+            if (dadosPesquisa[3] != "")
+            {
+                InputDataInicial.SendKeys(dadosPesquisa[3]);
+            }
+            if (dadosPesquisa[4] != "")
+            {
+                InputDataFinal.SendKeys(dadosPesquisa[4]);
+            }
+            if (dadosPesquisa[5] != "")
+            {
+                InputVara.Click();
+                SelectVara(dadosPesquisa[5]);
+            }
         }
 
         private void SubmitPesquisa()

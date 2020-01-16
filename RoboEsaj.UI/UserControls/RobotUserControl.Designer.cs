@@ -118,7 +118,7 @@
             this.btnConsultar.Location = new System.Drawing.Point(3, 328);
             this.btnConsultar.Name = "btnConsultar";
             this.btnConsultar.Size = new System.Drawing.Size(89, 35);
-            this.btnConsultar.TabIndex = 22;
+            this.btnConsultar.TabIndex = 6;
             this.btnConsultar.Text = "Consultar";
             this.btnConsultar.UseVisualStyleBackColor = true;
             this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);

@@ -102,6 +102,14 @@ namespace RoboEsaj.UI.UserControls
 
         }
 
-        
+        private void txtPesquisarDb_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                btnPesquisarDb.Focus();
+                btnPesquisarDb.PerformClick();
+            }
+        }
     }
 }
