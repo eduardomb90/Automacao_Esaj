@@ -49,6 +49,7 @@
             this.txtDataFinal = new System.Windows.Forms.TextBox();
             this.txtAssunto = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.cbLink = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // cbVara
@@ -61,6 +62,7 @@
             this.cbVara.FormattingEnabled = true;
             this.cbVara.Items.AddRange(new object[] {
             "SÃO PAULO",
+            "------------------------------------------",
             "Foro Regional I - Santana",
             "Foro Regional II - Santo Amaro",
             "Foro Regional III - Jabaquara",
@@ -297,11 +299,25 @@
             this.label1.TabIndex = 14;
             this.label1.Text = "nome completo";
             // 
+            // cbLink
+            // 
+            this.cbLink.AutoSize = true;
+            this.cbLink.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.cbLink.Font = new System.Drawing.Font("Century Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbLink.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.cbLink.Location = new System.Drawing.Point(595, 337);
+            this.cbLink.Name = "cbLink";
+            this.cbLink.Size = new System.Drawing.Size(84, 21);
+            this.cbLink.TabIndex = 21;
+            this.cbLink.Text = "Pegar link";
+            this.cbLink.UseVisualStyleBackColor = false;
+            // 
             // RobotUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.Controls.Add(this.cbLink);
             this.Controls.Add(this.txtDataFinal);
             this.Controls.Add(this.txtDataInicial);
             this.Controls.Add(this.txtAssunto);
@@ -352,5 +368,6 @@
         private System.Windows.Forms.TextBox txtDataFinal;
         private System.Windows.Forms.TextBox txtAssunto;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox cbLink;
     }
 }

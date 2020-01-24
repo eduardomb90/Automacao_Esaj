@@ -31,6 +31,13 @@
             this.components = new System.ComponentModel.Container();
             this.btnDgvExport = new System.Windows.Forms.Button();
             this.dgvEsaj = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnReloadDb = new System.Windows.Forms.Button();
+            this.lblPesquisarDb = new System.Windows.Forms.Label();
+            this.txtPesquisarDb = new System.Windows.Forms.TextBox();
+            this.btnPesquisarDb = new System.Windows.Forms.Button();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,17 +47,11 @@
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.linkDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.decisaoModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnReloadDb = new System.Windows.Forms.Button();
-            this.lblPesquisarDb = new System.Windows.Forms.Label();
-            this.txtPesquisarDb = new System.Windows.Forms.TextBox();
-            this.btnPesquisarDb = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEsaj)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.decisaoModelBindingSource)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.decisaoModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // btnDgvExport
@@ -79,80 +80,14 @@
             this.dataGridViewTextBoxColumn6,
             this.dataGridViewTextBoxColumn7,
             this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn9});
+            this.dataGridViewTextBoxColumn9,
+            this.linkDataGridViewTextBoxColumn});
             this.dgvEsaj.DataSource = this.decisaoModelBindingSource;
             this.dgvEsaj.Location = new System.Drawing.Point(3, 74);
             this.dgvEsaj.Name = "dgvEsaj";
             this.dgvEsaj.ReadOnly = true;
             this.dgvEsaj.Size = new System.Drawing.Size(807, 322);
             this.dgvEsaj.TabIndex = 2;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Processo";
-            this.dataGridViewTextBoxColumn1.HeaderText = "Processo";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Classe";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Classe";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Assunto";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Assunto";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "Magistrado";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Magistrado";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Comarca";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Comarca";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "Foro";
-            this.dataGridViewTextBoxColumn6.HeaderText = "Foro";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "Vara";
-            this.dataGridViewTextBoxColumn7.HeaderText = "Vara";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "Data";
-            this.dataGridViewTextBoxColumn8.HeaderText = "Data";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "Resultado";
-            this.dataGridViewTextBoxColumn9.HeaderText = "Resultado";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            // 
-            // decisaoModelBindingSource
-            // 
-            this.decisaoModelBindingSource.DataSource = typeof(RoboEsaj.Database.Models.DecisaoModel);
             // 
             // panel1
             // 
@@ -229,6 +164,80 @@
             this.btnPesquisarDb.UseVisualStyleBackColor = true;
             this.btnPesquisarDb.Click += new System.EventHandler(this.Buscar_Click);
             // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Processo";
+            this.dataGridViewTextBoxColumn1.HeaderText = "Processo";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Classe";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Classe";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Assunto";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Assunto";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "Magistrado";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Magistrado";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Comarca";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Comarca";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "Foro";
+            this.dataGridViewTextBoxColumn6.HeaderText = "Foro";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "Vara";
+            this.dataGridViewTextBoxColumn7.HeaderText = "Vara";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "Data";
+            this.dataGridViewTextBoxColumn8.HeaderText = "Data";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "Resultado";
+            this.dataGridViewTextBoxColumn9.HeaderText = "Resultado";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            // 
+            // linkDataGridViewTextBoxColumn
+            // 
+            this.linkDataGridViewTextBoxColumn.DataPropertyName = "Link";
+            this.linkDataGridViewTextBoxColumn.HeaderText = "Link";
+            this.linkDataGridViewTextBoxColumn.Name = "linkDataGridViewTextBoxColumn";
+            this.linkDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // decisaoModelBindingSource
+            // 
+            this.decisaoModelBindingSource.DataSource = typeof(RoboEsaj.Database.Models.DecisaoModel);
+            // 
             // DbUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -242,8 +251,8 @@
             this.Name = "DbUserControl";
             this.Size = new System.Drawing.Size(813, 457);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEsaj)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.decisaoModelBindingSource)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.decisaoModelBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -278,6 +287,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn linkDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource decisaoModelBindingSource;
     }
 }

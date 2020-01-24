@@ -10,7 +10,7 @@ using System.IO;
 
 namespace RoboEsaj.Domain.Utilities
 {
-    public class CriarXlsx
+    public class CreateXlsx : ICreateXlsx
     {
         public void OpenExcel(DataGridView dgv)
         {
@@ -52,7 +52,7 @@ namespace RoboEsaj.Domain.Utilities
                     MessageBox.Show("Não foi possível salvar o arquivo!\nArquivo com o mesmo nome já existe.", "Ops...", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     throw;
                 }
-                
+
                 excelWorkBook.Close();
                 excelApp.Quit();
             }
@@ -78,27 +78,5 @@ namespace RoboEsaj.Domain.Utilities
                 }
             }
         }
-
-        //Código Velho
-        //if (dgvEsaj.Rows.Count > 0)
-        //{
-        //    Microsoft.Office.Interop.Excel.Application xcelApp = new Microsoft.Office.Interop.Excel.Application();
-        //    xcelApp.Application.Workbooks.Add(Type.Missing);
-
-        //    for (int i = 1; i < dgvEsaj.Columns.Count + 1; i++)
-        //    {
-        //        xcelApp.Cells[1, i] = dgvEsaj.Columns[i - 1].HeaderText;
-        //    }
-
-        //    for (int i = 0; i < dgvEsaj.Rows.Count; i++)
-        //    {
-        //        for (int j = 0; j < dgvEsaj.Columns.Count; j++)
-        //        {
-        //            xcelApp.Cells[i + 2, j + 1] = dgvEsaj.Rows[i].Cells[j].Value?.ToString() ?? "";
-        //        }
-        //    }
-        //    xcelApp.Columns.AutoFit();
-        //    xcelApp.Visible = true;
-        //}
     }
 }

@@ -70,7 +70,7 @@ namespace RoboEsaj.UI.UserControls
         {
             try
             {
-                var xlsx = new CriarXlsx();
+                var xlsx = new CreateXlsx();
 
                 xlsx.OpenExcel(dgvEsaj);
 
@@ -90,7 +90,7 @@ namespace RoboEsaj.UI.UserControls
 
                 if (fileName.Length > 0)
                 {
-                    var xlsx = new CriarXlsx();
+                    var xlsx = new CreateXlsx();
 
                     xlsx.SaveXlsx(dgvEsaj, fileName);
                 }

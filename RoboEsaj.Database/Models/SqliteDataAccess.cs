@@ -22,16 +22,16 @@ namespace RoboEsaj.Database.Models
         {
             using (IDbConnection conn = new SQLiteConnection(LoadConnectionString()))
             {
-                conn.Execute("INSERT INTO Decisao (Processo, Classe, Assunto, Magistrado, Comarca, Foro, Vara, Data, Resultado) " +
-                            "VALUES (@Processo, @Classe, @Assunto, @Magistrado, @Comarca, @Foro, @Vara, @Data, @Resultado)", decisao);
+                conn.Execute("INSERT INTO Decisao (Processo, Classe, Assunto, Magistrado, Comarca, Foro, Vara, Data, Resultado, Link) " +
+                            "VALUES (@Processo, @Classe, @Assunto, @Magistrado, @Comarca, @Foro, @Vara, @Data, @Resultado, @Link)", decisao);
             }
         }
 
         public static void SaveDecisaoWithoutOpeningDb(DecisaoModel decisao, IDbConnection conn)
         {
            
-             conn.Execute("INSERT INTO Decisao (Processo, Classe, Assunto, Magistrado, Comarca, Foro, Vara, Data, Resultado) " +
-                        "VALUES (@Processo, @Classe, @Assunto, @Magistrado, @Comarca, @Foro, @Vara, @Data, @Resultado)", decisao);
+             conn.Execute("INSERT INTO Decisao (Processo, Classe, Assunto, Magistrado, Comarca, Foro, Vara, Data, Resultado, Link) " +
+                        "VALUES (@Processo, @Classe, @Assunto, @Magistrado, @Comarca, @Foro, @Vara, @Data, @Resultado, @Link)", decisao);
            
         }
 

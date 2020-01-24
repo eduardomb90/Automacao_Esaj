@@ -7,7 +7,7 @@ namespace RoboEsaj.UI.Forms
 {
     public partial class FrmEsaj : Form
     {
-        public ClasseDeNavegacao EsajDois { get; private set; }
+        public ScrapClass EsajDois { get; private set; }
         public string TextoPesquisa { get; private set; }
 
         public FrmEsaj()

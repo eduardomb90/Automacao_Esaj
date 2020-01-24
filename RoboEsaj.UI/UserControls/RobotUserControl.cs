@@ -1,24 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using OpenQA.Selenium;
 using RoboEsaj.Domain.Utilities;
 
 namespace RoboEsaj.UI.UserControls
 {
     public partial class RobotUserControl : UserControl
     {
-        public ClasseDeNavegacao EsajDois { get; private set; }
+        public ScrapClass EsajDois { get; private set; }
         public IList<string> DadosPesquisa { get; private set; }
-        public string TextoPesquisa { get; private set; }
-        public string Assunto { get; private set; }
-        public string NomeMagistrado { get; private set; }
-        public string Vara { get; private set; }
+        public bool LinkCheck { get; set; }
 
         public RobotUserControl()
         {
@@ -60,24 +53,46 @@ namespace RoboEsaj.UI.UserControls
 
             if (allSame)
             {
-                MessageBox.Show("É preciso preencher ao menos um campo", "Aviso!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("É preciso preencher ao menos um campo", "Aviso!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-            
+
+            LinkCheck = cbLink.Checked;
+
             try
             {
-                EsajDois = new ClasseDeNavegacao();
-                EsajDois.Scrape(DadosPesquisa);
+                EsajDois = new ScrapClass();
+                EsajDois.Scrape(DadosPesquisa, LinkCheck);
             }
-            catch (Exception)
+            catch (NoSuchElementException exception)
             {
+                MessageBox.Show(exception.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+            catch (ElementNotVisibleException exception)
+            {
+                MessageBox.Show(exception.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            catch (ElementNotSelectableException exception)
+            {
+                MessageBox.Show(exception.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            catch (TimeoutException exception)
+            {
+                MessageBox.Show(exception.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            catch(Exception exception)
+            {
+                MessageBox.Show(exception.InnerException.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void txbPesquisa_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == System.Windows.Forms.Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 btnConsultar.Focus();
@@ -87,7 +102,7 @@ namespace RoboEsaj.UI.UserControls
 
         private void txtAssunto_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == System.Windows.Forms.Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 btnConsultar.Focus();
@@ -97,7 +112,7 @@ namespace RoboEsaj.UI.UserControls
 
         private void txtMagistrado_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == System.Windows.Forms.Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 btnConsultar.Focus();
@@ -107,7 +122,7 @@ namespace RoboEsaj.UI.UserControls
 
         private void txtDataInicial_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == System.Windows.Forms.Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 btnConsultar.Focus();
@@ -117,7 +132,7 @@ namespace RoboEsaj.UI.UserControls
 
         private void txtDataFinal_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == System.Windows.Forms.Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 btnConsultar.Focus();
@@ -127,7 +142,7 @@ namespace RoboEsaj.UI.UserControls
 
         private void cbVara_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode == System.Windows.Forms.Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 btnConsultar.Focus();

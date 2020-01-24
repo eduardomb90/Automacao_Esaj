@@ -63,15 +63,20 @@
     <Reference Include="WebDriver.Support, Version=3.141.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Selenium.Support.3.141.0\lib\net45\WebDriver.Support.dll</HintPath>
     </Reference>
+    <Reference Include="xunit.assert, Version=2.4.1.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\packages\xunit.assert.2.4.1\lib\netstandard1.1\xunit.assert.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\ContainerConfig.cs" />
     <Compile Include="Helpers\DriverDoChrome.cs" />
-    <Compile Include="Utilities\ClasseDeNavegacao.cs" />
-    <Compile Include="Utilities\CriarXlsx.cs" />
-    <Compile Include="Utilities\IClasseDeNavegacao.cs" />
+    <Compile Include="Helpers\ScrapingHelper.cs" />
+    <Compile Include="Utilities\ScrapClass.cs" />
+    <Compile Include="Utilities\CreateXlsx.cs" />
+    <Compile Include="Utilities\IScrapClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utilities\PreencheBancoDeDados.cs" />
+    <Compile Include="Utilities\ICreateXlsx.cs" />
+    <Compile Include="Utilities\IFillDataClass.cs" />
+    <Compile Include="Utilities\FillDataClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

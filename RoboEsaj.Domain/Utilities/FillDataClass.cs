@@ -6,23 +6,23 @@ using System.Data;
 
 namespace RoboEsaj.Domain.Utilities
 {
-    public class PreencheBancoDeDados
+    public class FillDataClass : IFillDataClass
     {
         public DecisaoModel Decisao { get; set; }
         private string _conteudo;
 
-        public PreencheBancoDeDados()
+        public FillDataClass(DecisaoModel decisao)
         {
-            Decisao = new DecisaoModel();
+            Decisao = decisao;
         }
 
         public void AddToDb(ReadOnlyCollection<IWebElement> row, IDbConnection conn)
         {
             var i = 1;
-           
+
             Decisao.Processo = row[i].Text;
             i++;
-            
+
             if (row[i].Text.Contains("Classe"))
             {
                 Decisao.Classe = row[i].Text.Replace("Classe: ", "");
@@ -67,9 +67,9 @@ namespace RoboEsaj.Domain.Utilities
 
             _conteudo = row[i].Text;
 
-            
 
-            
+
+
             if ((_conteudo.IndexOf("procedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
                  _conteudo.IndexOf("provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
                  _conteudo.IndexOf("provido", StringComparison.OrdinalIgnoreCase) >= 0 ||
@@ -92,7 +92,7 @@ namespace RoboEsaj.Domain.Utilities
             {
                 Decisao.Resultado = "Favorável";
             }
-            else if((_conteudo.IndexOf("procedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
+            else if ((_conteudo.IndexOf("procedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
                      _conteudo.IndexOf("provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
                      _conteudo.IndexOf("provido", StringComparison.OrdinalIgnoreCase) >= 0 ||
                      _conteudo.IndexOf("acolho o pedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
@@ -112,7 +112,7 @@ namespace RoboEsaj.Domain.Utilities
                       _conteudo.IndexOf("não concedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
                       _conteudo.IndexOf("julgo improcedente", StringComparison.OrdinalIgnoreCase) >= 0))
             {
-                Decisao.Resultado = "Parcialmente Favorável (precisa ser consultado)";
+                Decisao.Resultado = "Favorável (precisa ser consultado)";
             }
             else if ((_conteudo.IndexOf("improcedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
                       _conteudo.IndexOf("parcialmente procedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
@@ -123,7 +123,7 @@ namespace RoboEsaj.Domain.Utilities
                       _conteudo.IndexOf("não concedo", StringComparison.OrdinalIgnoreCase) >= 0 ||
                       _conteudo.IndexOf("não concedida", StringComparison.OrdinalIgnoreCase) >= 0 ||
                       _conteudo.IndexOf("não concedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("julgo improcedente", StringComparison.OrdinalIgnoreCase) >= 0) 
+                      _conteudo.IndexOf("julgo improcedente", StringComparison.OrdinalIgnoreCase) >= 0)
                      &&
                      (_conteudo.IndexOf("procedente", StringComparison.OrdinalIgnoreCase) == -1 &&
                      _conteudo.IndexOf("provimento", StringComparison.OrdinalIgnoreCase) == -1 &&
@@ -161,7 +161,7 @@ namespace RoboEsaj.Domain.Utilities
             }
             catch (Exception)
             {
-                
+
             }
         }
     }

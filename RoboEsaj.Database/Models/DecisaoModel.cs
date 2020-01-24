@@ -19,5 +19,7 @@
         public string Data { get; set; }
 
         public string Resultado { get; set; }
+
+        public string Link { get; set; }
     }
 }
