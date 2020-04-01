@@ -73,12 +73,12 @@ namespace RoboEsaj.Domain.Utilities
                 do
                 {
                     GetTableElements(linkCheck, Tables, ShowNewWindow, ShowHidden);
-                
+            
                     present = Scraping.IsElementPresent(NextPage);
                     if (present)
                     {
                         Scraping.ProximaPagina(NextPage);
-                        Scraping.IsPageLoaded(Tables, ShowHidden);
+                        Scraping.IsLoaded(ShowHidden);
                     }
 
                 } while (present);
@@ -253,7 +253,7 @@ namespace RoboEsaj.Domain.Utilities
         private void GetTableElements(bool linkCheck, By element, By windowElement, By plusElement)
         {
             Scraping.IsLoaded(element);
-            var tables = _driver.FindElements(element);
+            var tables = Scraping.FindElements(element);
 
             try
             {
@@ -263,11 +263,7 @@ namespace RoboEsaj.Domain.Utilities
                     {
                         Scraping.GetLink(linkCheck,  windowElement, table);
 
-                        bool clicked;
-                        do
-                        {
-                            clicked = Scraping.ClickOnTablePlus(table, plusElement);
-                        } while (!clicked);
+                        Scraping.ClickLoop(table, plusElement);
                         
                         var textIndex = $"{_tableIndex} -";
                         var rows = table.FindElements(TableRows);

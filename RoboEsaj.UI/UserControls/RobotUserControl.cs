@@ -86,7 +86,6 @@ namespace RoboEsaj.UI.UserControls
             }
             catch(Exception exception)
             {
-                MessageBox.Show(exception.InnerException.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

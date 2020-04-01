@@ -62,7 +62,8 @@
             this.cbVara.FormattingEnabled = true;
             this.cbVara.Items.AddRange(new object[] {
             "SÃO PAULO",
-            "------------------------------------------",
+            "---------------------------------------------------------------------------------" +
+                "-------",
             "Foro Regional I - Santana",
             "Foro Regional II - Santo Amaro",
             "Foro Regional III - Jabaquara",

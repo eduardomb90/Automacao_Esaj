@@ -19,6 +19,7 @@ namespace RoboEsaj.Domain.Helpers
             {
                 var options = new ChromeOptions();
                 options.AddArgument("no-sandbox");
+                options.AddArgument("--start-maximized");
 
                 return new ChromeDriver(ChromeDriverService.CreateDefaultService(), options, TimeSpan.FromSeconds(240));
             }

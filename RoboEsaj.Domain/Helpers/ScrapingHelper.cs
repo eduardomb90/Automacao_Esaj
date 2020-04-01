@@ -4,10 +4,6 @@ using RoboEsaj.Database.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Xunit;
 
 namespace RoboEsaj.Domain.Helpers
@@ -18,6 +14,7 @@ namespace RoboEsaj.Domain.Helpers
         private WebDriverWait Wait { get; set; }
         private DecisaoModel Decisao { get; set; }
 
+        private By NextPage = By.CssSelector("a.esajLinkLogin[title='Próxima página']");
 
         public ScrapingHelper(IWebDriver driver, WebDriverWait wait, DecisaoModel decisao)
         {
@@ -47,8 +44,7 @@ namespace RoboEsaj.Domain.Helpers
             {
                 var msg = Driver.FindElement(message).Text;
                 Driver.Quit();
-                MessageBox.Show(msg, "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                return;
+                throw new Exception(msg);
             }
         }
         
@@ -65,58 +61,122 @@ namespace RoboEsaj.Domain.Helpers
             }
         }
 
-        public void IsLoaded(By by)
+        public bool AreAllPresent(By by)
         {
-            bool present;
-            do
-            {
-                present = IsElementPresent(by);
-            } while (!present);
-
             try
             {
-                Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(by)); //ElementIsVisible
+                if (!String.IsNullOrEmpty(Driver.CurrentWindowHandle))
+                {
+                    try
+                    {
+                        //Driver.FindElement(by); ---------->> possivelmente desnecessário
+                        Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(by));
+                        return true; // Para sair do loop em condições normais
+                    }
+                    catch (Exception)
+                    {
+                        return false; // Para se manter no loop
+                    }
+                }
+                else
+                {
+                    return true; // Este true serve para sair do loop, caso haja um erro
+                }
             }
             catch (Exception)
             {
-                Driver.Quit();
-                throw new Exception("Site demorou muito para carregar as decisões!");
+                return true; // Este true serve para sair do loop, caso haja um erro
             }
         }
 
-        public void IsPageLoaded(By firstBy, By secondBy)
+        private void IsInteractable(By by)
         {
-            bool present;
-            do
+            if (!String.IsNullOrEmpty(Driver.CurrentWindowHandle))
             {
-                present = IsElementPresent(firstBy);
-            } while (!present);
-
-            try
-            {
+                int tries = 0;
                 bool waiting;
                 do
                 {
-                    waiting = LoopWaitTables(firstBy, secondBy);
+                    waiting = AreAllPresent(by);
+                    if (!waiting)
+                    {
+                        tries++;
+                    }
+
+                    if (tries > 3)
+                    {
+                        ProximaPagina(NextPage);
+                        tries = 0;
+                    }
                 } while (!waiting);
             }
-            catch (Exception)
+            else
             {
-                Driver.Quit();
-                throw new Exception("Site demorou muito para carregar uma nova página!");
+                throw new Exception();
             }
         }
-        
-        public bool ClickTableNewWindow(IWebElement table, By element)
+
+        public void IsLoaded(By by)
         {
             try
             {
-                table.FindElement(element).Click();
-                return true;
+                IsInteractable(by);
             }
             catch (Exception)
             {
-                return false;
+                //Driver.Quit();
+                throw new Exception("Site demorou muito para carregar ou foi fechado!");
+            }
+        }
+
+        public IReadOnlyCollection<IWebElement> FindElements(By element)
+        {
+            if(!String.IsNullOrEmpty(Driver.CurrentWindowHandle))
+            {
+                return Driver.FindElements(element);
+            }
+            else
+            {
+                throw new Exception("Elemento não encontrado!\nOu o site demorou muito para carregar ou foi fechado.");
+            }
+        }
+        
+        public bool FindAndClick(IWebElement table, By element)
+        {
+            try
+            {
+                if (!String.IsNullOrEmpty(Driver.CurrentWindowHandle))
+                {
+                    try
+                    {
+                        table.FindElement(element).Click();
+                        return true; // Para sair do loop em condições normais
+                    }
+                    catch (Exception)
+                    {
+                        return false; // Para se manter no loop
+                    }
+                }
+                else
+                {
+                    return true; // Para sair do loop, caso algo dê errado
+                }
+            }
+            catch (Exception)
+            {
+                return true;  // Para sair do loop, caso algo dê errado
+            }
+        }
+
+        public void ClickLoop(IWebElement table, By element)
+        {
+            if (!String.IsNullOrEmpty(Driver.CurrentWindowHandle))
+            {
+                bool clicked;
+                do
+                {
+                    clicked = FindAndClick(table, element);
+                } while (!clicked);
             }
         }
 
@@ -137,44 +197,15 @@ namespace RoboEsaj.Domain.Helpers
                 bool clicked;
                 do
                 {
-                    clicked = ClickTableNewWindow(tableElement, linkElement);
+                    clicked = FindAndClick(tableElement, linkElement);
                 } while (!clicked);
 
                 SwitchTabGetLink(Decisao);
             }
         }
 
-        public bool ClickOnTablePlus(IWebElement table, By element)
-        {
-            try
-            {
-                table.FindElement(element).Click();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-        public bool LoopWaitTables(By firstBy, By secondBy)
-        {
-            try
-            {
-                Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(firstBy)); //ElementIsVisible
-                Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.VisibilityOfAllElementsLocatedBy(secondBy)); //Esperar o símbolo de +
-                Thread.Sleep(1000);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
         public void ProximaPagina(By nextPageElement) //Colocar um loop aqui
         {
-            //Thread.Sleep(1000);
             try
             {
                 Driver.FindElement(nextPageElement).Click();

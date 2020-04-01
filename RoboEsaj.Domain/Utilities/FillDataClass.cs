@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using OpenQA.Selenium;
 using RoboEsaj.Database.Models;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace RoboEsaj.Domain.Utilities
 {
@@ -65,99 +66,77 @@ namespace RoboEsaj.Domain.Utilities
                 i++;
             }
 
+            
             _conteudo = row[i].Text;
 
-
-
-
-            if ((_conteudo.IndexOf("procedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                 _conteudo.IndexOf("provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                 _conteudo.IndexOf("provido", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                 _conteudo.IndexOf("acolho o pedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                 _conteudo.IndexOf("concedo", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                 _conteudo.IndexOf("concedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                 _conteudo.IndexOf("concedida", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                 _conteudo.IndexOf("julgo procedente", StringComparison.OrdinalIgnoreCase) >= 0)
+            if (    Regex.IsMatch(_conteudo, @"\b(?im)(procedente|provimento|provido|acolho o pedido|concedo|
+                                                    concedido|concedida|julgo procedente)")
                 &&
-                (_conteudo.IndexOf("improcedente", StringComparison.OrdinalIgnoreCase) == -1 &&
-                 _conteudo.IndexOf("parcialmente procedente", StringComparison.OrdinalIgnoreCase) == -1 &&
-                 _conteudo.IndexOf("indefiro", StringComparison.OrdinalIgnoreCase) == -1 &&
-                 _conteudo.IndexOf("improvido", StringComparison.OrdinalIgnoreCase) == -1 &&
-                 _conteudo.IndexOf("nego provimento", StringComparison.OrdinalIgnoreCase) == -1 &&
-                 _conteudo.IndexOf("nega provimento", StringComparison.OrdinalIgnoreCase) == -1 &&
-                 _conteudo.IndexOf("não concedo", StringComparison.OrdinalIgnoreCase) == -1 &&
-                 _conteudo.IndexOf("não concedida", StringComparison.OrdinalIgnoreCase) == -1 &&
-                 _conteudo.IndexOf("não concedido", StringComparison.OrdinalIgnoreCase) == -1 &&
-                 _conteudo.IndexOf("julgo improcedente", StringComparison.OrdinalIgnoreCase) == -1))
+                    !Regex.IsMatch(_conteudo, @"\b(?im)(improcedente|parcialmente procedente|indefiro|improvido|
+                                                        nego provimento|nega provimento|não concedo|não concedida|
+                                                        não concedido|julgo improcedente)"))
             {
+
                 Decisao.Resultado = "Favorável";
             }
-            else if ((_conteudo.IndexOf("procedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     _conteudo.IndexOf("provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     _conteudo.IndexOf("provido", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     _conteudo.IndexOf("acolho o pedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     _conteudo.IndexOf("concedo", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     _conteudo.IndexOf("concedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     _conteudo.IndexOf("concedida", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     _conteudo.IndexOf("julgo procedente", StringComparison.OrdinalIgnoreCase) >= 0)
-                     &&
-                     (_conteudo.IndexOf("improcedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("parcialmente procedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("indefiro", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("improvido", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("nego provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("nega provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("não concedo", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("não concedida", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("não concedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("julgo improcedente", StringComparison.OrdinalIgnoreCase) >= 0))
+            else if (   Regex.IsMatch(_conteudo, @"\b(?im)(procedente|provimento|provido|acolho o pedido|concedo|
+                                                        concedido|concedida|julgo procedente)")
+                    &&
+                        Regex.IsMatch(_conteudo, @"\b(?im)(improcedente|parcialmente procedente|indefiro|improvido|
+                                                            nego provimento|nega provimento|não concedo|não concedida|
+                                                            não concedido|julgo improcedente)"))
             {
-                Decisao.Resultado = "Favorável (precisa ser consultado)";
+
+                if (Regex.IsMatch(_conteudo, @"\b(?im)(julgo procedente)") &&
+                    !Regex.IsMatch(_conteudo, @"\b(?im)(julgo improcedente)"))
+                {
+
+                    Decisao.Resultado = "Favorável";
+                }
+                else if (Regex.IsMatch(_conteudo, @"\b(?im)(julgo improcedente)") &&
+                        !Regex.IsMatch(_conteudo, @"\b(?im)(julgo procedente)"))
+                {
+
+                    Decisao.Resultado = "Desfavorável";
+                }
+                else
+                {
+
+                    Decisao.Resultado = "Favorável (precisa ser consultado)";
+                }
+
             }
-            else if ((_conteudo.IndexOf("improcedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("parcialmente procedente", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("indefiro", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("improvido", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("nego provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("nega provimento", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("não concedo", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("não concedida", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("não concedido", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("julgo improcedente", StringComparison.OrdinalIgnoreCase) >= 0)
-                     &&
-                     (_conteudo.IndexOf("procedente", StringComparison.OrdinalIgnoreCase) == -1 &&
-                     _conteudo.IndexOf("provimento", StringComparison.OrdinalIgnoreCase) == -1 &&
-                     _conteudo.IndexOf("provido", StringComparison.OrdinalIgnoreCase) == -1 &&
-                     _conteudo.IndexOf("acolho o pedido", StringComparison.OrdinalIgnoreCase) == -1 &&
-                     _conteudo.IndexOf("concedo", StringComparison.OrdinalIgnoreCase) == -1 &&
-                     _conteudo.IndexOf("concedido", StringComparison.OrdinalIgnoreCase) == -1 &&
-                     _conteudo.IndexOf("concedida", StringComparison.OrdinalIgnoreCase) == -1 &&
-                     _conteudo.IndexOf("julgo procedente", StringComparison.OrdinalIgnoreCase) == -1))
+            else if (   Regex.IsMatch(_conteudo, @"\b(?im)(improcedente|parcialmente procedente|indefiro|improvido|
+                                                        nego provimento|nega provimento|não concedo|não concedida|
+                                                        não concedido|julgo improcedente)")
+                    &&
+                        !Regex.IsMatch(_conteudo, @"\b(?im)(procedente|provimento|acolho o pedido|concedo|
+                                                            concedido|julgo procedente)"))
             {
+
                 Decisao.Resultado = "Desfavorável";
             }
-            else if ((_conteudo.IndexOf("conciliação", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("acordo", StringComparison.OrdinalIgnoreCase) >= 0)
-                      &&
-                     (_conteudo.IndexOf("homologo", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("julgo extinto", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                      _conteudo.IndexOf("declaro extinto", StringComparison.OrdinalIgnoreCase) >= 0))
+            else if (Regex.IsMatch(_conteudo, @"\b(?im)(conciliação|acordo)") &&
+                      Regex.IsMatch(_conteudo, @"\b(?im)(homologo|julgo extinto|declaro extinto)"))
             {
+
                 Decisao.Resultado = "Homologação de Conciliação";
             }
-            else if (_conteudo.IndexOf("julgo extinto", StringComparison.OrdinalIgnoreCase) >= 0 ||
-                     _conteudo.IndexOf("declaro extinto", StringComparison.OrdinalIgnoreCase) >= 0)
+            else if (Regex.IsMatch(_conteudo, @"\b(?im)(julgo extinto|julgo extinta|declaro extinto|declaro extinta)"))
             {
+
                 Decisao.Resultado = "Extinto";
             }
             else
             {
+
                 Decisao.Resultado = "Indefinido";
             }
 
             try
             {
-                SqliteDataAccess.SaveDecisaoWithoutOpeningDb(Decisao, conn);
+                if(Decisao.Resultado != "Extinto" && Decisao.Resultado != "Indefinido")
+                    SqliteDataAccess.SaveDecisaoWithoutOpeningDb(Decisao, conn);
             }
             catch (Exception)
             {
